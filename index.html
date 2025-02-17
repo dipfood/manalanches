@@ -1,0 +1,127 @@
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mana Lanches</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <img src="logomana.jpeg" alt="Logo" class="logo">
+
+  <div class="container">
+    <div class="left-panel">
+      <h1>PDV</h1>
+
+      <div class="input-group">
+        <label for="productCode">Código do Produto:</label>
+        <input type="text" id="productCode" placeholder="Digite o código">
+      </div>
+
+      <div class="input-group">
+        <label for="productQuantity">Quantidade:</label>
+        <input type="number" id="productQuantity" value="1" min="1">
+      </div>
+
+      <button id="addButton">Adicionar</button>
+      <button id="registerProductButton">Cadastrar Produto</button>
+
+      <div class="input-group">
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" placeholder="Telefone">
+      </div>
+
+      <div class="input-group">
+        <label for="cpf">CPF/CNPJ:</label>
+        <input type="text" id="cpf" placeholder="CPF/CNPJ">
+      </div>
+
+      <div class="input-group">
+        <label for="cliente">Cliente:</label>
+        <input type="text" id="cliente" placeholder="Consumidor">
+      </div>
+
+      <div class="button-group">
+        <button>F1 Receber</button>
+        <button>F2 Novo</button>
+        <button>F3 Histórico</button>
+        <button>F4 Entrega</button>
+        <button>F5 Produtos</button>
+        <button>F6 Cliente</button>
+        <button>F8 Diversos</button>
+        <button>F9 Editar</button>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <h2>Venda Atual</h2>
+      <ul id="currentSalesList"></ul>
+
+      <h2>Vendas Anteriores</h2>
+      <ul id="previousSalesList"></ul>
+
+      <div id="total">Total: R$ 0.00</div>
+
+      <button id="exportButton">Exportar para TXT</button>
+    </div>
+  </div>
+
+  <!-- The Modal -->
+  <div id="registerProductModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Cadastrar Novo Produto</h2>
+      <form id="registerProductForm">
+        <div class="input-group">
+          <label for="productCodeRegister">Código do Produto:</label>
+          <input type="text" id="productCodeRegister" placeholder="Digite o código">
+        </div>
+        <div class="input-group">
+          <label for="productName">Nome do Produto:</label>
+          <input type="text" id="productName" placeholder="Digite o nome">
+        </div>
+        <div class="input-group">
+          <label for="productPrice">Preço do Produto:</label>
+          <input type="number" id="productPrice" placeholder="Digite o preço" step="0.01">
+        </div>
+        <button type="submit">Cadastrar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Payment Modal -->
+  <div id="paymentModal" class="modal">
+    <div class="modal-content">
+      <h2>Pagamento</h2>
+      <div class="input-group">
+        <label for="paymentAmount">Valor Recebido:</label>
+        <input type="number" id="paymentAmount" placeholder="Digite o valor recebido" step="0.01">
+      </div>
+      <div class="input-group">
+        <label for="paymentType">Tipo de Pagamento:</label>
+        <select id="paymentType">
+          <option value="pix">PIX</option>
+          <option value="dinheiro">Dinheiro</option>
+          <option value="cartao">Cartão</option>
+        </select>
+      </div>
+      <div id="changeDetails" style="display: none;">
+        <label for="amountPaid">Valor Pago:</label>
+        <input type="number" id="amountPaid" placeholder="Digite o valor pago" step="0.01">
+        <p id="changeAmount"></p>
+      </div>
+      <button id="confirmPayment">Confirmar Pagamento</button>
+      <button id="cancelPayment">Cancelar</button>
+
+      <div id="paymentDetails">
+        <!-- Payment details will be displayed here -->
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
