@@ -2,8 +2,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mana Lanches</title>
+  <meta name="viewport" content="width-width, initial-scale=1.0">
+  <title>Sistema de Mercado</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -25,7 +25,7 @@
       </div>
 
       <button id="addButton">Adicionar</button>
-      <button id="registerProductButton">Cadastrar Produto</button>
+      <!-- <button id="registerProductButton">Cadastrar Produto</button> -->
 
       <div class="input-group">
         <label for="telefone">Telefone:</label>
@@ -43,14 +43,9 @@
       </div>
 
       <div class="button-group">
-        <button>F1 Receber</button>
-        <button>F2 Novo</button>
-        <button>F3 Histórico</button>
-        <button>F4 Entrega</button>
-        <button>F5 Produtos</button>
-        <button>F6 Cliente</button>
-        <button>F8 Diversos</button>
-        <button>F9 Editar</button>
+        <button id="registerProductButton">Cadastrar Produto</button>
+        <button>Produtos</button>
+        <button>Apagar Vendas Anteriores</button>
       </div>
     </div>
 
@@ -95,23 +90,25 @@
   <div id="paymentModal" class="modal">
     <div class="modal-content">
       <h2>Pagamento</h2>
-      <div class="input-group">
-        <label for="paymentAmount">Valor Recebido:</label>
-        <input type="number" id="paymentAmount" placeholder="Digite o valor recebido" step="0.01">
+
+      <div class="payment-options">
+        <div class="payment-option" data-payment-type="pix">
+          PIX
+        </div>
+        <div class="payment-option" data-payment-type="cartao">
+          Cartão
+        </div>
+        <div class="payment-option" data-payment-type="dinheiro">
+          Dinheiro
+        </div>
       </div>
-      <div class="input-group">
-        <label for="paymentType">Tipo de Pagamento:</label>
-        <select id="paymentType">
-          <option value="pix">PIX</option>
-          <option value="dinheiro">Dinheiro</option>
-          <option value="cartao">Cartão</option>
-        </select>
-      </div>
-      <div id="changeDetails" style="display: none;">
-        <label for="amountPaid">Valor Pago:</label>
+
+      <div id="cashPaymentDetails" style="display: none;">
+        <label for="amountPaid">Valor Recebido:</label>
         <input type="number" id="amountPaid" placeholder="Digite o valor pago" step="0.01">
         <p id="changeAmount"></p>
       </div>
+
       <button id="confirmPayment">Confirmar Pagamento</button>
       <button id="cancelPayment">Cancelar</button>
 
