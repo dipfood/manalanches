@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width-width, initial-scale=1.0">
-  <title>Maná Lancheteria</title>
+  <title>Sistema de Mercado</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -12,7 +12,7 @@
 
   <div class="container">
     <div class="left-panel">
-      <h1>PDV</h1>
+      <h1>Mana Lanches</h1>
 
       <div class="input-group">
         <label for="productCode">Código do Produto:</label>
@@ -46,6 +46,7 @@
         <button id="registerProductButton">Cadastrar Produto</button>
         <button>Produtos</button>
         <button>Apagar Vendas Anteriores</button>
+        <button>Remover Produto</button>
       </div>
     </div>
 
@@ -114,6 +115,17 @@
 
       <div id="paymentDetails">
         <!-- Payment details will be displayed here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Remove Product Modal -->
+  <div id="removeProductModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Remover Produto</h2>
+      <div id="removeProductList">
+        <!-- Product list will be dynamically generated here -->
       </div>
     </div>
   </div>

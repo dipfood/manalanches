@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const registerProductForm = document.getElementById('registerProductForm');
   const newButton = document.querySelector('.button-group button:nth-child(2)');
   const historyButton = document.querySelector('.button-group button:nth-child(3)');
+  const removeProductListButton = document.querySelector('.button-group button:nth-child(4)');
 
   const paymentModal = document.getElementById('paymentModal');
   const confirmPaymentButton = document.getElementById('confirmPayment');
@@ -29,6 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let total = parseFloat(localStorage.getItem('total')) || 0;
   let products = JSON.parse(localStorage.getItem('products')) || [];
   let currentSale = null;
+
+  const removeProductModal = document.getElementById('removeProductModal');
+  const removeProductModalCloseBtn = removeProductModal.querySelector('.close');
+  const productSuggestions = document.createElement('ul');
+  productSuggestions.id = 'productSuggestions';
+  productCodeInput.parentNode.appendChild(productSuggestions);
 
   function saveState() {
     localStorage.setItem('currentSales', JSON.stringify(currentSales));
@@ -400,6 +407,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.target == paymentModal) {
       paymentModal.style.display = 'none';
     }
+
   });
   registerProductForm.addEventListener('submit', registerProduct);
 
@@ -464,6 +472,99 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         document.getElementById('cashPaymentDetails').style.display = 'none';
       }
+    }
+  });
+
+  removeProductListButton.addEventListener('click', () => {
+    displayRemoveProductModal();
+  });
+
+  function displayRemoveProductModal() {
+    removeProductModal.style.display = 'flex';
+
+    const productListContainer = document.getElementById('removeProductList');
+    productListContainer.innerHTML = '';
+
+    if (products.length === 0) {
+      productListContainer.innerHTML = '<p>Nenhum produto cadastrado.</p>';
+      return;
+    }
+
+    const list = document.createElement('ul');
+    products.forEach((product, index) => {
+      const listItem = document.createElement('li');
+      listItem.innerHTML = `
+        ${product.name} (Código: ${product.code}, Preço: R$${product.price.toFixed(2)})
+        <button class="removeButton" data-index="${index}">Remover</button>
+      `;
+      list.appendChild(listItem);
+    });
+    productListContainer.appendChild(list);
+
+    const removeButtons = productListContainer.querySelectorAll('.removeButton');
+    removeButtons.forEach(button => {
+      button.addEventListener('click', removeProduct);
+    });
+  }
+
+  function removeProduct(event) {
+    const index = event.target.dataset.index;
+    products.splice(index, 1);
+    saveState();
+    displayRemoveProductModal();
+    showAlert('Produto removido com sucesso!', 'success');
+  }
+
+  removeProductModalCloseBtn.addEventListener('click', () => {
+    removeProductModal.style.display = 'none';
+  });
+
+  window.addEventListener('click', (event) => {
+    if (event.target == removeProductModal) {
+      removeProductModal.style.display = 'none';
+    }
+  });
+
+  productCodeInput.addEventListener('input', () => {
+    const searchTerm = productCodeInput.value.trim().toLowerCase();
+    displayProductSuggestions(searchTerm);
+  });
+
+  function displayProductSuggestions(searchTerm) {
+    productSuggestions.innerHTML = '';
+
+    if (searchTerm === '') {
+      productSuggestions.style.display = 'none';
+      return;
+    }
+
+    const suggestedProducts = products.filter(product =>
+      product.name.toLowerCase().includes(searchTerm) || product.code.includes(searchTerm)
+    );
+
+    if (suggestedProducts.length === 0) {
+      productSuggestions.style.display = 'none';
+      return;
+    }
+
+    suggestedProducts.forEach(product => {
+      const suggestionItem = document.createElement('li');
+      suggestionItem.textContent = `${product.name} (Código: ${product.code})`;
+      suggestionItem.addEventListener('click', () => {
+        productCodeInput.value = product.code;
+        productSuggestions.style.display = 'none';
+        productQuantityInput.focus();
+      });
+      productSuggestions.appendChild(suggestionItem);
+    });
+
+    productSuggestions.style.display = 'block';
+  }
+
+  // Hide suggestions when clicking outside the input
+  document.addEventListener('click', (event) => {
+    if (!productCodeInput.contains(event.target) && !productSuggestions.contains(event.target)) {
+      productSuggestions.style.display = 'none';
     }
   });
 });
